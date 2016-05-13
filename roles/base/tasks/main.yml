@@ -1,0 +1,19 @@
+---
+# Essential tasks that run on each host
+- name: Create devops group
+  group:
+    name: devops
+    state: present
+
+- name: Create devops sudo user
+  user:
+    name: devops
+    comment: 'devops user'
+    uid: 2001
+    group: devops
+
+- name: Install htop
+  apt:
+    name: htop
+    state: present
+    update_cache: yes

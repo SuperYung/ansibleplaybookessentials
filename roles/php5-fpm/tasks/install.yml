@@ -1,0 +1,14 @@
+---
+- name: Add PHP5 PPA
+  apt_repository:
+    repo: 'ppa:ondrej/php5'
+
+- name: Install php5-fpm
+  apt:
+    name: "{{ item }}"
+    state: latest
+    force: yes
+    update_cache: yes
+  with_items: "{{ php5['packages'] }}"
+  notify:
+    - Restart php5-fpm service

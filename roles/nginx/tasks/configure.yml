@@ -1,0 +1,29 @@
+---
+# Manages NGINX configuration
+- name: Create default configuration
+  template:
+    src: default.conf.j2
+    dest: /etc/nginx/conf.d/default.conf
+    mode: 0644
+  notify:
+    - Restart NGINX service
+
+- name: Create default home page
+  copy:
+    src: index.html.j2
+    dest: /usr/share/nginx/index.html
+
+- name: Create sites-enabled
+  file:
+    path: /etc/nginx/sites-enabled
+    state: directory
+    owner: root
+    group: root
+
+- name: Create PHP virtual hosts
+  template:
+    src: php_vhost.j2
+    dest: /etc/nginx/sites-enabled/{{ item.key }}.conf
+  with_dict: "{{ nginx['phpsites'] }}"
+  notify:
+    - Restart NGINX service

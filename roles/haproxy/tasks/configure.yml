@@ -1,0 +1,16 @@
+---
+- name: Create haproxy config
+  template:
+    src: "haproxy.cfg.j2"
+    dest: "{{ haproxy['config']['cnfpath'] }}"
+    mode: 0644
+  notify:
+    - Restart haproxy service
+
+- name: Enable haproxy
+  template:
+    src: "haproxy.default.j2"
+    dest: /etc/default/haproxy
+    mode: 0644
+  notify:
+    - Restart haproxy service

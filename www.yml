@@ -1,0 +1,13 @@
+---
+# playbook for web servers
+- hosts: www
+  remote_user: vagrant
+  become: yes
+  pre_tasks:
+     - shell: echo 'Beginning to configure NGINX'
+  roles:
+    - { role: nginx, when: ansible_os_family == 'Debian' }
+    - { role: php5-fpm }
+    - { role: wordpress }
+  post_tasks:
+     - shell: echo 'Done configuring NGINX'

@@ -1,0 +1,16 @@
+---
+# TODO: Replace with `upstream` module after issue is fixed
+# https://github.com/ansible/ansible-modules-core/issues/932
+- name: Download Wordpress
+  command: /usr/bin/wget -c https://wordpress.org/latest.tar.gz
+  args:
+    chdir: "{{ wp_srcdir }}"
+    creates: "{{ wp_srcdir }}/latest.tar.gz"
+  register: wp_download
+
+- name: Create NGINX docroot
+  file:
+    path: "{{ wp_docroot }}"
+    state: directory
+    owner: "{{ wp_user }}"
+    group: "{{ wp_group }}"

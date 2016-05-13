@@ -1,0 +1,5 @@
+---
+- name: Start php5-fpm service
+  service:
+    name: "{{ php5['service']['name'] }}"
+    state: started

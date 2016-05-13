@@ -1,0 +1,26 @@
+---
+# Manages the role's provision
+- name: Add official nginx repository
+  apt_repository:
+    repo: 'deb http://nginx.org/packages/ubuntu/ trusty nginx'
+    state: present
+
+- name: Add official nginx repository source
+  apt_repository:
+    repo: 'deb-src http://nginx.org/packages/ubuntu/ trusty nginx'
+
+- name: Add official nginx repository signing key
+  apt_key:
+    url: http://nginx.org/keys/nginx_signing.key
+    state: present
+
+- name: Install nginx web server and ensure latest version
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Start nginx service
+  service:
+    name: nginx
+    state: started

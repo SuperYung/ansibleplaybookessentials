@@ -1,0 +1,11 @@
+---
+# defaults file for wordpress
+wp_srcdir: /usr/local/src
+wp_docroot: /var/www
+wp_sitedir: example
+wp_user: nginx
+wp_group: nginx
+wp_dbname: example
+wp_dbuser: example
+wp_dbpass: example
+wp_dbhost: 192.168.61.11

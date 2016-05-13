@@ -1,0 +1,16 @@
+---
+# tasks file for mysql
+# Vars specific for OS family.
+- include: "{{ ansible_os_family }}.yml"
+  when: ansible_os_family != 'Debian'
+
+- include: install_RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: install_Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: configure.yml
+  when: mysql.server
+- include: service.yml
+  when: mysql.server

@@ -1,0 +1,6 @@
+---
+# handlers file for php5-fpm
+- name: Restart php5-fpm service
+  service:
+    name: "{{ php5['service']['name'] }}"
+    state: restarted

@@ -1,0 +1,12 @@
+---
+# Playbook for database servers
+- hosts: db
+  remote_user: vagrant
+  become: yes
+  roles:
+    - { role: mysql }
+  vars:
+    mysql:
+      server: true
+      config:
+        bind: "{{ ansible_eth1.ipv4.address }}"

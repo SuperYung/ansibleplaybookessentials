@@ -1,0 +1,33 @@
+---
+# Provision Vagrant machines
+- hosts: all
+  become: Yes
+  tasks:
+    - name: Update cache
+      apt: update_cache=yes
+
+    - name: Install Software properties common
+      apt:
+        name: software-properties-common
+        state: present
+
+    - name: Add Ansible repository
+      apt_repository:
+        repo: 'ppa:ansible/ansible'
+        state: present
+
+    - name: Update cache
+      apt:
+        update_cache: yes
+
+    - name: Install Ansible
+      apt:
+        name: ansible
+        state: present
+
+    - name: Show Ansible version
+      command: ansible --version
+      register: ansible
+
+    - debug:
+        var: ansible.stdout

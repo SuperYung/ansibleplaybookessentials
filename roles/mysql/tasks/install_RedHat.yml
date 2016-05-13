@@ -1,0 +1,10 @@
+---
+- name: Install MySQL server
+  yum:
+    name: "{{ mysql['pkg']['server'] }}"
+  when: mysql.pkg.server
+
+- name: Install MySQL binding
+  apt:
+    name: "{{ mysql['pkg']['python'] }}"
+  when: mysql.pkg.python

@@ -1,0 +1,23 @@
+---
+- name: Create MySQL config
+  template:
+    src: 'my.cnf.j2'
+    dest: "{{ mysql['config']['cnfpath'] }}"
+    mode: 0644
+  notify:
+    - Restart MySQL service
+
+- name: Create MySQL databases
+  mysql_db:
+    name: "{{ item.key }}"
+    state: "{{ item.value.state }}"
+  with_dict: "{{ mysql['databases'] }}"
+
+- name: Create MySQL users
+  mysql_user:
+    name: "{{ item.key }}"
+    host: "{{ item.value.host }}"
+    password: "{{ item.value.pass }}"
+    priv: "{{ item.value.priv }}"
+    state: "{{ item.value.state }}"
+  with_dict: "{{ mysql['users'] }}"

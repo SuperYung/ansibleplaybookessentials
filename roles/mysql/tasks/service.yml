@@ -1,0 +1,5 @@
+---
+- name: Start MySQL server
+  service:
+    name: "{{ mysql['service'] }}"
+    state: started
